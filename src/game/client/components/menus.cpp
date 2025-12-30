@@ -2562,3 +2562,18 @@ void CMenus::ShowQuitPopup()
 {
 	m_Popup = POPUP_QUIT;
 }
+
+void CMenus::RenderSettingsClosor(CUIRect MainView)
+{
+    CUIRect Button;
+    // Отступаем сверху 25 единиц под чекбокс
+    MainView.HSplitTop(25.0f, &Button, &MainView);
+    
+    static int s_FakeAimId = 0; // Уникальный ID для кнопки в памяти
+    // Рисуем чекбокс. g_Config.m_ClFakeAim — это то, что мы добавили в variables.h
+    if(DoButton_CheckBox(&s_FakeAimId, "Fake Aim", g_Config.m_ClFakeAim, &Button))
+    {
+        g_Config.m_ClFakeAim ^= 1; // Инвертируем 0 на 1 или наоборот
+    }
+}
+
